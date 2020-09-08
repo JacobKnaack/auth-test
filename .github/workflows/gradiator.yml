@@ -1,0 +1,25 @@
+# This workflow will execute a test against a deployed graditor app
+
+name: Gradiator
+
+on:
+  push:
+    branches: [ * ]
+  pull_request:
+    branches: [ * ]
+
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+
+      strategy:
+        matrix:
+          node-version: [10.x, 12.x, 14.x]
+
+      steps:
+      - name: HTTP Request Action
+        uses: fjogeleit/http-request-action@v1.4.1
+        with:
+          url: 'https://gradiator.herokuapp.com/'
+          method: 'POST'
+          data: `{"projectURL": "https://javascript-401.netlify.app/", "projectName": "js-401-auth-4"}`
